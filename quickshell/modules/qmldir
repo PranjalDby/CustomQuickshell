@@ -1,5 +1,6 @@
 singleton Theme 1.0 Theme.qml
 singleton System 1.0 System.qml
+singleton Plugins 1.0 Plugins.qml
 Pill 1.0 Pill.qml
 Bar 1.0 Bar.qml
 Launcher 1.0 Launcher.qml
@@ -8,3 +9,8 @@ Notifications 1.0 Notifications.qml
 Osd 1.0 Osd.qml
 ThemeSelector 1.0 ThemeSelector.qml
 Display 1.0 Display.qml
+Wifi 1.0 Wifi.qml
+Bluetooth 1.0 Bluetooth.qml
+PowerMenu 1.0 PowerMenu.qml
+PluginManager 1.0 PluginManager.qml
+ClipHistory 1.0 ClipHistory.qml

@@ -8,6 +8,11 @@ PanelWindow {
 
     signal themeRequested()
     signal displayRequested()
+    signal wifiRequested()
+    signal bluetoothRequested()
+    signal powerRequested()
+    signal pluginsRequested()
+    signal clipboardRequested()
 
     visible: false
     anchors { top: true; bottom: true; left: true; right: true }
@@ -67,7 +72,8 @@ PanelWindow {
 
                 Text { text: "APPEARANCE"; color: Theme.muted; font.family: Theme.font; font.pixelSize: 11 }
 
-                Row {
+                Flow {
+                    width: parent.width
                     spacing: 6
                     Pill {
                         text: "Themes"
@@ -78,6 +84,16 @@ PanelWindow {
                         text: "Displays"
                         onClicked: { menu.visible = false; menu.displayRequested() }
                     }
+                }
+
+                Text { text: "NETWORK & POWER"; color: Theme.muted; font.family: Theme.font; font.pixelSize: 11 }
+
+                Flow {
+                    width: parent.width
+                    spacing: 6
+                    Pill { text: "Wi-Fi"; onClicked: { menu.visible = false; menu.wifiRequested() } }
+                    Pill { text: "Bluetooth"; onClicked: { menu.visible = false; menu.bluetoothRequested() } }
+                    Pill { text: "Power"; onClicked: { menu.visible = false; menu.powerRequested() } }
                 }
 
                 Text { text: "AUDIO"; color: Theme.muted; font.family: Theme.font; font.pixelSize: 11 }
@@ -132,6 +148,8 @@ PanelWindow {
                     Pill { text: "Lock"; onClicked: menu.run("hyprlock") }
                     Pill { text: "Screenshot"; onClicked: menu.run("~/.config/quickshell/scripts/screenshot.sh", 300) }
                     Pill { text: "Logout"; onClicked: menu.run("hyprctl dispatch exit") }
+                    Pill { text: "Clipboard"; onClicked: { menu.visible = false; menu.clipboardRequested() } }
+                    Pill { text: "Plugins"; onClicked: { menu.visible = false; menu.pluginsRequested() } }
                 }
             }
         }
