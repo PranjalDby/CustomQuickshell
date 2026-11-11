@@ -6,6 +6,9 @@ import QtQuick
 PanelWindow {
     id: menu
 
+    signal themeRequested()
+    signal displayRequested()
+
     visible: false
     anchors { top: true; bottom: true; left: true; right: true }
     color: "#66000000"
@@ -15,8 +18,7 @@ PanelWindow {
 
     function toggle() { visible = !visible }
 
-    // Close the menu first, then run the command after a short delay,
-    // so screenshots and other tools don't capture the menu
+    // Close first, then run the command after a delay so screenshots don't capture the menu
     function run(cmd, delayMs) {
         pending = cmd
         visible = false
@@ -42,7 +44,6 @@ PanelWindow {
         focus: true
         Keys.onEscapePressed: menu.visible = false
 
-        // Click outside the card to close
         MouseArea {
             anchors.fill: parent
             onClicked: menu.visible = false
@@ -57,7 +58,6 @@ PanelWindow {
             color: Theme.bg
             border.color: Theme.accent
 
-            // Swallow clicks inside the card
             MouseArea { anchors.fill: parent }
 
             Column {
@@ -65,19 +65,18 @@ PanelWindow {
                 anchors { left: parent.left; right: parent.right; top: parent.top; margins: 12 }
                 spacing: 10
 
-                Text { text: "THEME"; color: Theme.muted; font.family: Theme.font; font.pixelSize: 11 }
+                Text { text: "APPEARANCE"; color: Theme.muted; font.family: Theme.font; font.pixelSize: 11 }
 
-                Flow {
-                    width: parent.width
+                Row {
                     spacing: 6
-                    Repeater {
-                        model: Theme.names
-                        Pill {
-                            required property string modelData
-                            text: modelData
-                            highlighted: modelData === Theme.name
-                            onClicked: Theme.setTheme(modelData)
-                        }
+                    Pill {
+                        text: "Themes"
+                        highlighted: true
+                        onClicked: { menu.visible = false; menu.themeRequested() }
+                    }
+                    Pill {
+                        text: "Displays"
+                        onClicked: { menu.visible = false; menu.displayRequested() }
                     }
                 }
 

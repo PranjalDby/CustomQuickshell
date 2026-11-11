@@ -6,3 +6,5 @@ Launcher 1.0 Launcher.qml
 Menu 1.0 Menu.qml
 Notifications 1.0 Notifications.qml
 Osd 1.0 Osd.qml
+ThemeSelector 1.0 ThemeSelector.qml
+Display 1.0 Display.qml

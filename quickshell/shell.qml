@@ -11,9 +11,17 @@ ShellRoot {
     }
 
     Launcher { id: launcher }
-    Menu { id: menu }
     Osd { id: osd }
     Notifications { }
+
+    ThemeSelector { id: themes }
+    Display { id: display }
+
+    Menu {
+        id: menu
+        onThemeRequested: themes.open()
+        onDisplayRequested: display.visible = true
+    }
 
     Connections {
         target: System
@@ -31,12 +39,18 @@ ShellRoot {
     }
 
     IpcHandler {
-        target: "theme"
+        target: "themes"
+        function open(): void { themes.open() }
         function next(): void {
             const i = Theme.names.indexOf(Theme.name)
             Theme.setTheme(Theme.names[(i + 1) % Theme.names.length])
         }
         function set(name: string): void { Theme.setTheme(name) }
+    }
+
+    IpcHandler {
+        target: "display"
+        function toggle(): void { display.toggle() }
     }
 
     IpcHandler {
