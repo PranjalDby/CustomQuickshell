@@ -1,0 +1,85 @@
+* {
+    font: "JetBrainsMono Nerd Font 11";
+    background-color: transparent;
+    text-color: {{fg}};
+}
+
+window {
+    width: 960px;
+    background-color: {{bg}};
+    border: 2px;
+    border-color: {{accent}};
+    border-radius: 14px;
+    padding: 18px;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+    spacing: 14px;
+    background-color: transparent;
+}
+
+inputbar {
+    background-color: {{surface}};
+    border-radius: 10px;
+    padding: 9px 14px;
+    spacing: 10px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: {{accent}};
+    font: "JetBrainsMono Nerd Font Bold 11";
+}
+
+entry {
+    text-color: {{fg}};
+    placeholder: "Search wallpapers";
+    placeholder-color: {{muted}};
+}
+
+listview {
+    columns: 4;
+    lines: 3;
+    spacing: 12px;
+    background-color: transparent;
+    scrollbar: false;
+}
+
+element {
+    orientation: vertical;
+    padding: 8px;
+    spacing: 6px;
+    border-radius: 10px;
+    background-color: transparent;
+    text-color: {{fg}};
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+}
+
+element selected.normal {
+    background-color: {{surface}};
+    border: 2px;
+    border-color: {{accent}};
+    text-color: {{accent}};
+}
+
+element-icon {
+    size: 190px;
+    horizontal-align: 0.5;
+    background-color: transparent;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    background-color: transparent;
+    text-color: inherit;
+}
+element-icon {
+    size: 210px 118px;
+    horizontal-align: 0.5;
+    background-color: transparent;
+}

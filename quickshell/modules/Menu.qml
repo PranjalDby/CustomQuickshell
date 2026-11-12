@@ -147,7 +147,7 @@ PanelWindow {
                     spacing: 6
                     Pill { text: "Lock"; onClicked: menu.run("hyprlock") }
                     Pill { text: "Screenshot"; onClicked: menu.run("~/.config/quickshell/scripts/screenshot.sh", 300) }
-                    Pill { text: "Logout"; onClicked: menu.run("hyprctl dispatch exit") }
+                    Pill { text: "Logout"; onClicked: menu.run("~/.config/quickshell/scripts/logout.sh") }
                     Pill { text: "Clipboard"; onClicked: { menu.visible = false; menu.clipboardRequested() } }
                     Pill { text: "Plugins"; onClicked: { menu.visible = false; menu.pluginsRequested() } }
                 }

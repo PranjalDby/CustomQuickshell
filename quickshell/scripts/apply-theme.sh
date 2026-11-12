@@ -1,10 +1,16 @@
 #!/bin/sh
-# Usage: apply-theme.sh <theme-name>
+# Usage:
+#   apply-theme.sh <theme-name>           uses themes/<name>.env and its wallpaper
+#   apply-theme.sh --env <file> <label>   uses a generated palette, leaves the wallpaper alone
 QS="$HOME/.config/quickshell"
-name="$1"
-src="$QS/themes/$name.env"
 
-[ -f "$src" ] || { echo "No theme named $name" >&2; exit 1; }
+if [ "$1" = "--env" ]; then
+    src="$2"; name="$3"; set_wall=0
+else
+    name="$1"; src="$QS/themes/$name.env"; set_wall=1
+fi
+
+[ -f "$src" ] || { echo "No palette file: $src" >&2; exit 1; }
 
 mkdir -p "$QS/state"
 cp "$src" "$QS/state/colors.env"
@@ -22,24 +28,31 @@ render() {
     sed $expr "$1" > "$2"
 }
 
-render "$QS/templates/hyprland.tmpl" "$HOME/.config/hypr/theme.conf"
+render "$QS/templates/theme.lua.tmpl" "$HOME/.config/hypr/theme.lua"
 render "$QS/templates/kitty.tmpl" "$HOME/.config/kitty/theme.conf"
+render "$QS/templates/rofi-wallpaper.rasi.tmpl" "$HOME/.config/rofi/wallpaper.rasi"
 
 hyprctl reload >/dev/null 2>&1
 pkill -USR1 -x kitty 2>/dev/null
 
-# Wallpaper: wallpapers/<theme>.<ext>, if one exists
-wall=""
-for f in "$QS/wallpapers/$name".*; do
-    [ -f "$f" ] && { wall="$f"; break; }
-done
-
-if [ -n "$wall" ] && command -v swww >/dev/null 2>&1; then
-    if ! swww query >/dev/null 2>&1; then
-        (swww-daemon >/dev/null 2>&1 &)
-        sleep 1
+# Theme-only: set the theme's wallpaper, if it has one
+if [ "$set_wall" = 1 ]; then
+    wall=""
+    for f in "$QS/wallpapers/$name".*; do
+        [ -f "$f" ] && { wall="$f"; break; }
+    done
+    if [ -n "$wall" ] && command -v awww >/dev/null 2>&1; then
+        if ! awww query >/dev/null 2>&1; then
+            (awww-daemon >/dev/null 2>&1 &)
+            sleep 1
+        fi
+        awww img "$wall" --transition-type fade --transition-duration 1 >/dev/null 2>&1
     fi
-    swww img "$wall" --transition-type fade --transition-duration 1 >/dev/null 2>&1
 fi
+
+# User hooks (dux shell, GTK, and so on), with the palette name as $1
+for h in "$QS/hooks/"*.sh; do
+    [ -x "$h" ] && "$h" "$name" >/dev/null 2>&1
+done
 
 exit 0

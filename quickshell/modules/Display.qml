@@ -13,7 +13,7 @@ PanelWindow {
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     // The first monitor is the source that others can mirror
-    readonly property var monitors: Hyprland.monitors.values
+    readonly property var monitors: (Hyprland.monitors.values || []).filter(m => m !== null && m !== undefined)
     readonly property var source: monitors.length > 0 ? monitors[0] : null
 
     function toggle() { visible = !visible }

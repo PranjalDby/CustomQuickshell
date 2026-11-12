@@ -1,0 +1,14 @@
+-- Your own settings: extra binds, autostart apps, window rules.
+-- Loaded last, so anything here overrides the managed files.
+--
+-- Examples:
+--   hl.bind("SUPER + E", hl.dsp.exec_cmd("nautilus"))
+--
+--   hl.on("hyprland.start", function()
+--       hl.exec_cmd("nm-applet")
+--   end)
+--
+--   hl.window_rule({
+--       match = { title = "^(Calculator)$" },
+--       float = true,
+--   })
