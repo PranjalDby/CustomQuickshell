@@ -1,0 +1,12 @@
+{
+  "id": "airpods",
+  "name": "AirPods",
+  "description": "AirPods battery, noise control and ear detection via LibrePods, styled with DMS Material theming",
+  "version": "2.0.0",
+  "author": "Pranjal Dubey",
+  "icon": "earbuds",
+  "type": "widget",
+  "component": "./AirPodsWidget.qml",
+  "settings": "./Settings.qml",
+  "permissions": ["settings_read", "settings_write"]
+}
